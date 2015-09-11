@@ -3,9 +3,31 @@
 
   var ngModule = angular.module('eha.login-dialog', [
     'eha.login-dialog.service',
-    'eha.login-dialog.controller'
+    'eha.login-dialog.controller',
+    'eha.login-dialog.run',
+    'eha.login-dialog.config'
   ])
 
+  // Check for and export to commonjs environment
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = ngModule
+  }
+})()
+
+;(function () {
+  'use strict'
+  /**
+   * @ngdoc config
+   * @name ehaLoginDialog
+   * @module eha.login-dialog
+   */
+  var ngModule = angular.module('eha.login-dialog.config', [
+    'pouchdb'
+  ])
+
+  ngModule.config(['pouchDBProvider', 'POUCHDB_METHODS', function (pouchDBProvider, POUCHDB_METHODS) {
+    POUCHDB_METHODS.login = 'qify'
+  }])
   // Check for and export to commonjs environment
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = ngModule
@@ -86,13 +108,37 @@
 ;(function () {
   'use strict'
   /**
+   * @ngdoc run
+   * @name ehaLoginDialog
+   * @module eha.login-dialog
+   */
+  var ngModule = angular.module('eha.login-dialog.run', [
+    'eha.login-service',
+    'eha.login-dialog.service'
+  ])
+
+  ngModule.run(['ehaLoginService', 'ehaLoginDialogService', function (ehaLoginService, ehaLoginDialogService) {
+    ehaLoginService.config(ehaLoginDialogService)
+  }])
+
+  // Check for and export to commonjs environment
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = ngModule
+  }
+})()
+
+;(function () {
+  'use strict'
+  /**
    * @ngdoc service
    * @name ehaCounter
    * @module eha.login-dialog
    */
   var ngModule = angular.module('eha.login-dialog.service', [
     'gettext',
-    'ui.bootstrap.modal'
+    'ui.bootstrap.modal',
+    'template/modal/backdrop.html',
+    'template/modal/window.html'
   ])
 
   ngModule.service('ehaLoginDialogService', ['$q', '$log', '$modal', 'gettextCatalog', function (
