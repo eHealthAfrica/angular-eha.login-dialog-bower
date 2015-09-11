@@ -90,7 +90,10 @@
    * @name ehaCounter
    * @module eha.login-dialog
    */
-  var ngModule = angular.module('eha.login-dialog.service', [])
+  var ngModule = angular.module('eha.login-dialog.service', [
+    'gettext',
+    'ui.bootstrap.modal'
+  ])
 
   ngModule.service('ehaLoginDialogService', ['$q', '$log', '$modal', 'gettextCatalog', function (
     $q,
