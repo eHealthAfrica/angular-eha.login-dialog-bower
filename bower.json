@@ -27,6 +27,11 @@
     "tests"
   ],
   "dependencies": {
-    "angular-eha.login-service": "~0.1.0"
+    "angular": ">=1.2",
+    "angular-eha.login-service": ">=1",
+    "boostrap-css-only": ">=3",
+    "font-awesome": ">=4",
+    "angular-bootstrap": ">=0.13",
+    "angular-gettext": ">=2"
   }
 }
